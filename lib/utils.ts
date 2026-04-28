@@ -43,7 +43,7 @@ export const splitIntoSegments = (
   return segments;
 };
 
-export const  parsePDFFile = async (file: File) => {
+export const parsePDFFile = async (file: File) => {
   try {
     const pdfjsLib = await import("pdfjs-dist");
 
@@ -81,7 +81,7 @@ export const  parsePDFFile = async (file: File) => {
 
     let fullText = "";
 
-    for (let pageNum = 1; pageNum <= 10; pageNum++) {
+    for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
       const page = await pdfDocument.getPage(pageNum);
       const textContent = await page.getTextContent();
       const pageText = textContent.items
@@ -100,7 +100,6 @@ export const  parsePDFFile = async (file: File) => {
       content: segments,
       cover: coverDataUrl,
     };
-
   } catch (e) {
     console.error(`Error parsing PDF:`, e);
     throw new Error(

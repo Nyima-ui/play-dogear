@@ -1,4 +1,5 @@
 "use client";
+import { createBook } from "@/lib/action/book.action";
 import { parsePDFFile } from "@/lib/utils";
 import { upload } from "@vercel/blob/client";
 
@@ -11,7 +12,8 @@ const UploadForm = () => {
     const fileTitle = (formData.get("book-title") as string)
       .replace(/\s+/g, "-")
       .toLowerCase();
-      
+    const author = formData.get("book-author") as string;
+
     const pdfFile = formData.get("book-pdf") as File;
 
     const parsedPDF = await parsePDFFile(pdfFile);
@@ -21,6 +23,31 @@ const UploadForm = () => {
       handleUploadUrl: "/api/upload",
       contentType: "application/pdf",
     });
+
+    const response = await fetch(parsedPDF.cover);
+    const blob = await response.blob();
+
+    const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, blob, {
+      access: "public",
+      handleUploadUrl: "/api/upload",
+      contentType: "image/png",
+    });
+
+    const coverUrl = uploadedCoverBlob.url;
+
+    const bookPayload = {
+      title: fileTitle,
+      author,
+      fileUrl: uploadedPdfBlob.url,
+      coverURL: coverUrl,
+      fileBlobKey: uploadedPdfBlob.pathname,
+      fileSize: pdfFile.size,
+      totalSegments: 0,
+    };
+
+    console.log(bookPayload);
+
+    // await createBook(bookPayload);
   };
 
   return (
@@ -31,6 +58,16 @@ const UploadForm = () => {
           type="text"
           id="book-title"
           name="book-title"
+          required
+          className="border block focus:outline-1 focus:outline-sky-300 focus:border-0 mt-1.5"
+        />
+      </div>
+      <div>
+        <label htmlFor="book-author">Author</label>
+        <input
+          type="text"
+          id="book-author"
+          name="book-author"
           required
           className="border block focus:outline-1 focus:outline-sky-300 focus:border-0 mt-1.5"
         />
