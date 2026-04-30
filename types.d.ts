@@ -11,3 +11,20 @@ interface UpdatedTask {
   title: string;
   description: string;
 }
+
+interface CreateBook {
+  title: string;
+  author: string;
+  fileUrl: string;
+  fileBlobKey: string;
+  coverURL: string;
+  fileSize: number;
+  totalSegments: number;
+}
+
+interface TextSegment {
+  text: string;
+  segmentIndex: number;
+  pageNumber?: number;
+  wordCount: number;
+}

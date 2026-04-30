@@ -1,5 +1,5 @@
 "use client";
-import { createBook } from "@/lib/action/book.action";
+import { createBook, saveBookSegments } from "@/lib/action/book.action";
 import { parsePDFFile } from "@/lib/utils";
 import { upload } from "@vercel/blob/client";
 
@@ -45,9 +45,10 @@ const UploadForm = () => {
       totalSegments: 0,
     };
 
-    console.log(bookPayload);
+    const book = await createBook(bookPayload);
 
-    // await createBook(bookPayload);
+    const segments = await saveBookSegments(book.data._id, parsedPDF.content);
+
   };
 
   return (

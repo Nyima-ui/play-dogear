@@ -1,15 +1,25 @@
 import React from "react";
 
-const BookCards = () => {
+interface Book {
+  _id: string;
+  author: string;
+  coverURL: string;
+  createdAt: string;
+  fileBlobKey: string;
+  fileSize: number;
+  title: string;
+  totalSegments: number;
+}
+
+const BookCards = ({ books }: { books: Book[] }) => {
   return (
     <div className="mt-5">
       <ul>
-        <li>
-          <button className="cursor-pointer">The Book Thief</button>
-        </li>
-        <li>
-          <button className="cursor-pointer">Can&apos; Hurt Me</button>{" "}
-        </li>
+        {books.map((book) => (
+          <li key={book._id}>
+            <button className="cursor-pointer">{book.title}</button>
+          </li>
+        ))}
       </ul>
     </div>
   );

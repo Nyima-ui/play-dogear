@@ -1,9 +1,7 @@
-interface TextSegment {
-  text: string;
-  segmentIndex: number;
-  pageNumber?: number;
-  wordCount: number;
-}
+
+
+export const serializeData = <T>(data: T): T =>
+  JSON.parse(JSON.stringify(data));
 
 export const splitIntoSegments = (
   text: string,
