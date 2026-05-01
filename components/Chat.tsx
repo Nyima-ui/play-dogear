@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import { useState } from "react";
 
 const AIMessage = () => {
   return (
@@ -18,11 +19,13 @@ const HumanMessage = () => {
 };
 
 const Chat = () => {
+  const [status, setStatus] = useState("");
+
+
+  
   return (
     <div className="h-80 w-200 border mt-20 px-5 py-7 relative overflow-auto flex flex-col">
-      <div className="flex-1">
-
-      </div>
+      <div className="flex-1"></div>
       <button className="border px-2 py-1 rounded-md sticky bottom-0 float-right grow-0 cursor-pointer hover:scale-102 transition-transform ease-in duration-100 bg-black self-end">
         Speak
       </button>

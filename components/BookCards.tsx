@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+import { useState } from "react";
+import Link from "next/link";
 
 interface Book {
   _id: string;
@@ -12,12 +14,19 @@ interface Book {
 }
 
 const BookCards = ({ books }: { books: Book[] }) => {
+  const [BookSelected, setBookSelected] = useState("");
   return (
     <div className="mt-5">
       <ul>
         {books.map((book) => (
           <li key={book._id}>
-            <button className="cursor-pointer">{book.title}</button>
+            <Link
+              href={`/book/${book.title}`}
+              className="cursor-pointer"
+              onClick={() => setBookSelected(book.title)}
+            >
+              {book.title}
+            </Link>
           </li>
         ))}
       </ul>

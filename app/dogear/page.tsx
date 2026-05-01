@@ -14,7 +14,6 @@ const DogearHome = async () => {
         <UploadForm />
         <BookCards books={books}/>
       </div>
-      <Chat />
     </main>
   );
 };
