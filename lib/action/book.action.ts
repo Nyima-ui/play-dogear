@@ -69,7 +69,10 @@ export const  getAllBooks = async () => {
 
     return {
       success: true,
-      data: serializeData(books),
+      data: serializeData(books.map((book) => ({
+        ...book,
+        _id: book._id.toString(),
+      }))),
     };
     
   } catch (e) {
